@@ -9,11 +9,16 @@ package sushiban;
  *
  * @author OmarAlmonte
  */
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 public class frm_login extends javax.swing.JFrame {
 
     /**
      * Creates new form frm_login
      */
+    conexion cn=new conexion();
     public frm_login() {
         initComponents();
     }
@@ -28,6 +33,8 @@ public class frm_login extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        user = new javax.swing.JTextField();
+        password = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,29 +45,54 @@ public class frm_login extends javax.swing.JFrame {
             }
         });
 
+        user.setText("jTextField1");
+
+        password.setText("password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addComponent(jButton1)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addGap(163, 163, 163)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addComponent(jButton1)
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addGap(112, 112, 112))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        conexion cn = new conexion();
+      
+        Statement st = null;
+        ResultSet sp = null;
+        String query ="insert into usuarios(nombre,password) values('" + user.getText()+ "','" + password.getText() + "')";
+        try {  
+            st=cn.con.createStatement();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        try {
+            st.executeUpdate(query);
+            JOptionPane.showMessageDialog(this,"Usuario Registrado exitosamente");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this,"Error al registrarse");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -100,5 +132,7 @@ public class frm_login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JTextField password;
+    private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }
