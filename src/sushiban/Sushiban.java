@@ -16,7 +16,7 @@ public class Sushiban {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Nemoleo");
+        System.out.println("Valoi");
     }
     
 }
