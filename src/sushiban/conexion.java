@@ -13,6 +13,7 @@ public class conexion {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con=DriverManager.getConnection("jdbc:mysql://sql112.epizy.com/epiz_25365054_sushiban","epiz_25365054","8ROhcEJNJwn0");
+            System.out.println("funciona");
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println("Error:" +e);
         }
