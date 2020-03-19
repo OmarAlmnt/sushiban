@@ -11,7 +11,7 @@ public class conexion {
     public conexion(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://b7o3f0z8mwzsjgdgl2qw-mysql.services.clever-cloud.com:3306/b7o3f0z8mwzsjgdgl2qw?autoReconnect=true&useSSL=false","ug848wzvhsoop2qb","OXPwl3nicWsclMYDgUwV");
+            con=DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306/k1fHcxn5cd?autoReconnect=true&useSSL=false","k1fHcxn5cd","reqBtzJ9v5");
             System.out.println("funciona");
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println("Error:" +e);
