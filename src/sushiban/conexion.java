@@ -12,7 +12,7 @@ public class conexion {
     public conexion(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/woodtool","root","");
+            con=DriverManager.getConnection("jdbc:mysql://epiz_25365054_sushiban/woodtool","epiz_25365054","8ROhcEJNJwn0");
         } catch (ClassNotFoundException | SQLException e) {
             System.err.println("Error:" +e);
         }
