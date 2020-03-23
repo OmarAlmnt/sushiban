@@ -77,7 +77,7 @@ public class Frm_alta_usuario extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Cambio");
+        jLabel6.setText("CAmiiooo2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
