@@ -128,7 +128,7 @@ public class Metodos_sql {
                
                 
             } else {
-                JOptionPane.showMessageDialog(null, "Error en el usuario o contrasena ingresada");
+                JOptionPane.showMessageDialog(null, "Error en el usuario o contrasena ingresada!");
                 
                 
             }
