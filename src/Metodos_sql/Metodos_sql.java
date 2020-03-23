@@ -23,6 +23,8 @@ public class Metodos_sql {
 
     public static PreparedStatement sentencia_preparada;
     public static ResultSet resultado;
+    public static ResultSet resultado1;
+    public static ResultSet resultado2;
     public static String sql;
     private Component rootPane;
 
@@ -90,14 +92,14 @@ public class Metodos_sql {
         return busqueda_nombre;
     }
     
-    public static void buscarUsarioRegistrado(String id, String correo, String contrasena, String nombre) {
+    public static void buscarUsarioRegistrado(String id, String correo, String contrasena, String nombre, String apellidos) {
         String busqueda_usuario = null;
         Connection conexion = null;
         
 
         try {
             conexion = ConexionBD.conectar();
-            sql = "SELECT id,nombre,correo,contrasena FROM usuarios WHERE correo = '" + correo + "' && contrasena = '" + contrasena + "'";
+            sql = "SELECT id,nombre,correo,contrasena,apellidos FROM usuarios WHERE correo = '" + correo + "' && contrasena = '" + contrasena + "'";
             sentencia_preparada = conexion.prepareStatement(sql);
             resultado = sentencia_preparada.executeQuery();
             
@@ -113,6 +115,7 @@ public class Metodos_sql {
                 correo = resultado.getString("correo");
                 contrasena = resultado.getString("contrasena");
                 nombre = resultado.getString("nombre");
+                apellidos = resultado.getString("apellidos");
                 
                 id = resultado.getString("id");
                 
@@ -120,15 +123,18 @@ public class Metodos_sql {
                 Frm_sistema ventana = new Frm_sistema();
                 ventana.setVisible(true);
 
-               JOptionPane.showMessageDialog(null, "Binevenido (a) " + nombre);
+               JOptionPane.showMessageDialog(null, "Binevenido (a) " + nombre + " " + apellidos);
                
                
                 
             } else {
                 JOptionPane.showMessageDialog(null, "Error en el usuario o contrasena ingresada");
+                
+                
             }
 
         } catch (SQLException e) {
+            
             System.out.println(e);
         }
 
