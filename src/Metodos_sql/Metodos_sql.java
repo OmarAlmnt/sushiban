@@ -5,150 +5,50 @@
  */
 package Metodos_sql;
 
-import java.awt.Component;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
-import sushiban.Frm_sistema;
 
-/**
- *
- * @author Alber
- */
+
+
+
 public class Metodos_sql {
 
-    public static ConexionBD conexion = new ConexionBD();
+ public static conexion cn=new conexion();
 
-    public static PreparedStatement sentencia_preparada;
-    public static ResultSet resultado;
-    public static ResultSet resultado1;
-    public static ResultSet resultado2;
-    public static String sql;
-    private Component rootPane;
 
-    /**
-     *
-     * @param nombre
-     * @param apellidos
-     * @param correo
-     * @param contrasena
-     * @return
-     */
-    public ResultSet guardar(String nombre, String apellidos, String correo, String contrasena) {
-
-        int reultado = 0;
-        Connection conexion = null;
         
+    public static boolean login(String correo, String password) throws SQLException {
+           boolean intento = false;
         
-
-        String sentencia_guardar = ("INSERT INTO usuarios (nombre,apellidos,correo,contrasena) VALUES (?,?,?,?)");
-
+        Statement st = null;
+        ResultSet sp = null;
+        st=cn.con.createStatement();
         try {
-            conexion = ConexionBD.conectar();
-            sentencia_preparada = conexion.prepareStatement(sentencia_guardar);
-            sentencia_preparada.setString(1, nombre);
-            sentencia_preparada.setString(2, apellidos);
-            sentencia_preparada.setString(3, correo);
-            sentencia_preparada.setString(4, contrasena);
-
-            int resultado = sentencia_preparada.executeUpdate();
-            JOptionPane.showMessageDialog(rootPane, "Datos insertados con éxito");
-            sentencia_preparada.close();
-            conexion.close();
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, "Datos no insertados");
-            JOptionPane.showMessageDialog(rootPane,e);
-
+            sp=st.executeQuery("select * from usuario where");
+        } catch (SQLException ex) {
         }
-
-        return resultado;
-
-    }
-
-    public static String buscarNombre(String correo) {
-        String busqueda_nombre = null;
-        Connection coneccion = null;
         try {
-            conexion = (ConexionBD) ConexionBD.conectar();
-            String sentencia_buscar = ("SELECT nombre,apellido FROM usuarios WHERE correo = '" + correo + "'");
-            sentencia_preparada = conexion.prepareStatement(sentencia_buscar);
-            resultado = sentencia_preparada.executeQuery();
-            if (resultado.next()) {
-                String nombre = resultado.getString("nombre");
-                String apellidos = resultado.getString("apellidos");
-                busqueda_nombre = (nombre + " " + apellidos);
+            while (sp.next()) {
+
+                if (sp.getString("correo").equals(correo) && sp.getString("password").equals(password) ){
+                    intento = true;
+                
+                
+                    break;
+
+                }
 
             }
-            conexion.close();
-        } catch (Exception e) {
+        } catch (SQLException ex) {
 
-            System.out.println(e);
+            System.out.println(ex);
 
         }
-
-        return busqueda_nombre;
+        return intento;
     }
     
-    public static void buscarUsarioRegistrado(String id, String correo, String contrasena, String nombre, String apellidos) {
-        String busqueda_usuario = null;
-        Connection conexion = null;
-        
-
-        try {
-            conexion = ConexionBD.conectar();
-            sql = "SELECT id,nombre,correo,contrasena,apellidos FROM usuarios WHERE correo = '" + correo + "' && contrasena = '" + contrasena + "'";
-            sentencia_preparada = conexion.prepareStatement(sql);
-            resultado = sentencia_preparada.executeQuery();
-            
-            
-             if(correo.equals("root") && contrasena.equals("root")){
-             JOptionPane.showMessageDialog(null, "Binevenido iniciaste sesion como root");
-                
-                 Frm_sistema ventana = new Frm_sistema();
-                 ventana.setVisible(true);
-        }
-             
-           else if (resultado.next()) {
-                correo = resultado.getString("correo");
-                contrasena = resultado.getString("contrasena");
-                nombre = resultado.getString("nombre");
-                apellidos = resultado.getString("apellidos");
-                
-                id = resultado.getString("id");
-                
-        
-                Frm_sistema ventana = new Frm_sistema();
-                ventana.setVisible(true);
-
-               JOptionPane.showMessageDialog(null, "Binevenido (a) " + nombre + " " + apellidos);
-               
-               
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "Error en el usuario o contrasena ingresada");
-                
-                
-            }
-
-        } catch (SQLException e) {
-            
-            System.out.println(e);
-        }
-
-    }
-
-    private static class formulario {
-
-        private static void setVisible(boolean b) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        public formulario() {
-        }
-    }
     
     
 }

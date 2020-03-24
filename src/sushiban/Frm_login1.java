@@ -6,6 +6,9 @@
 package sushiban;
 
 import Metodos_sql.Metodos_sql;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -131,9 +134,13 @@ public class Frm_login1 extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-
-        metodos.buscarUsarioRegistrado(txtCorreo.getText(), txtContrasena.getText(),txtCorreo.getText(),txtCorreo.getText());
-        this.dispose();
+           boolean sesion = false;
+        try {
+            sesion = metodos.login(txtCorreo.getText(),txtContrasena.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Frm_login1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         System.out.println(sesion);
 
     }//GEN-LAST:event_btnEntrarActionPerformed
 
