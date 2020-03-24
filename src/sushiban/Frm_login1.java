@@ -11,10 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Alber
- */
+
 public class Frm_login1 extends javax.swing.JFrame {
 
     /**
@@ -140,7 +137,14 @@ public class Frm_login1 extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Frm_login1.class.getName()).log(Level.SEVERE, null, ex);
         }
-         System.out.println(sesion);
+         if (sesion){
+         
+         JOptionPane.showMessageDialog(this,"Sesion iniciada correctamente");
+         } else{
+         
+                  JOptionPane.showMessageDialog(this,"Correo o contraseña invalido(s)");
+
+         }
 
     }//GEN-LAST:event_btnEntrarActionPerformed
 
