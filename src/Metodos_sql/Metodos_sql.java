@@ -26,7 +26,7 @@ public class Metodos_sql {
         ResultSet sp = null;
         st=cn.con.createStatement();
         try {
-            sp=st.executeQuery("select * from usuario where");
+            sp=st.executeQuery("select * from usuario");
         } catch (SQLException ex) {
         }
         try {
