@@ -17,6 +17,7 @@ public class Frm_login1 extends javax.swing.JFrame {
     /**
      * Creates new form Frm_login
      */
+    public String nombre;
     public Frm_login1() {
         initComponents();
         setLocationRelativeTo(null);
@@ -131,18 +132,20 @@ public class Frm_login1 extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-           boolean sesion = false;
+           String[] sesion = new String[2];
         try {
             sesion = metodos.login(txtCorreo.getText(),txtContrasena.getText());
         } catch (SQLException ex) {
             Logger.getLogger(Frm_login1.class.getName()).log(Level.SEVERE, null, ex);
         }
-         if (sesion){
-         
-         JOptionPane.showMessageDialog(this,"Sesion iniciada correctamente");
+         if (sesion[0].equals("false")){
+             JOptionPane.showMessageDialog(this,"Correo o contraseña invalido(s)");
+   
          } else{
-         
-                  JOptionPane.showMessageDialog(this,"Correo o contraseña invalido(s)");
+             
+             nombre = sesion[1];
+                
+               JOptionPane.showMessageDialog(this,"Bienvenido, " + nombre);
 
          }
 
