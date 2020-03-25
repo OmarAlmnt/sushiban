@@ -18,13 +18,17 @@ public class Metodos_sql {
  public static conexion cn=new conexion();
 
 
+
         
-    public static boolean login(String correo, String password) throws SQLException {
-           boolean intento = false;
-        
+ @SuppressWarnings("empty-statement")
+    public static String[] login(String correo, String password) throws SQLException {
+       
+        String[] session = new String[2];
         Statement st = null;
         ResultSet sp = null;
         st=cn.con.createStatement();
+        String nombre = "";
+        String confirmacion = "";
         try {
             sp=st.executeQuery("select * from usuario");
         } catch (SQLException ex) {
@@ -33,11 +37,13 @@ public class Metodos_sql {
             while (sp.next()) {
 
                 if (sp.getString("correo").equals(correo) && sp.getString("password").equals(password) ){
-                    intento = true;
-                
-                
-                    break;
-
+                    
+                     nombre = sp.getString("nombre");
+                     confirmacion = "true";
+                     break;
+                }else{
+                    nombre = "error";
+                    confirmacion = "false";
                 }
 
             }
@@ -46,7 +52,11 @@ public class Metodos_sql {
             System.out.println(ex);
 
         }
-        return intento;
+     
+        session[0] = confirmacion;
+        session[1]= nombre;
+        return session;
+        
     }
     
     
